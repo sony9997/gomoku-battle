@@ -1,0 +1,43 @@
+.square {
+    width: 100%;
+    height: 100%;
+    background-color: #eebb55;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.square:hover .ghost {
+    opacity: 0.5;
+    transform: scale(0.8);
+}
+
+.ghost {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    /* Ensure clicks go through to the square */
+}
+
+.piece {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.black {
+    background-color: #000;
+    background: radial-gradient(circle at 30% 30%, #444, #000);
+}
+
+.white {
+    background-color: #fff;
+    background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+}
