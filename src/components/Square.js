@@ -1,8 +1,8 @@
 import styles from './Square.module.css';
 
-const Square = ({ value, onClick, xIsNext }) => {
+const Square = ({ value, onClick, xIsNext, style }) => {
     return (
-        <div className={styles.square} onClick={onClick}>
+        <div className={styles.square} onClick={onClick} style={style}>
             {value ? (
                 <div className={`${styles.piece} ${value === 'Black' ? styles.black : styles.white}`} />
             ) : (
