@@ -84,46 +84,44 @@ ipconfig getifaddr en0  # 或 ifconfig
 ## 开发命令
 
 ```bash
-npm run dev            # 启动开发服务器（端口 3000，包含 Socket.io）
-npm run build          # 生产环境构建
-npm run start          # 生产环境运行（NODE_ENV=production）
-npm run build:portable # 打包 Windows 便携版（包含 Node.js 运行时）
+npm run dev              # 启动开发服务器（端口 3000，包含 Socket.io）
+npm run build            # 生产环境构建
+npm run start            # 生产环境运行（NODE_ENV=production）
+npm run electron:dev     # 开发模式运行 Electron 应用
+npm run electron:build   # 构建 Electron 安装包（Windows + Mac）
+npm run electron:build:win  # 仅构建 Windows 版本
 ```
 
-## Windows 便携版打包
+## Electron 桌面应用打包
 
-项目支持打包成 Windows 可执行文件，用户无需安装 Node.js 即可运行。
+项目支持打包成独立的桌面应用程序，内置 Chromium 浏览器，用户无需安装任何依赖。
 
 ### 打包命令
 
 ```bash
-npm run build:portable
+npm run electron:build:win   # 构建 Windows 便携版 EXE
 ```
 
 ### 输出位置
 
 ```
-dist/gomoku-battle-full/
-├── 启动游戏.bat          # 双击运行
-├── 启动游戏(静默).vbs    # 后台运行，自动打开浏览器
-├── 使用说明.txt
-├── node/                 # 内置 Node.js 18 运行时
-├── server.js
-├── node_modules/
-├── .next/
-└── public/
+release/
+├── 五子棋对战-便携版.exe    # 单文件，双击即可运行（约 136MB）
+└── win-unpacked/           # 解压后的文件夹（可选）
 ```
 
 ### 打包说明
 
-- **文件大小**: 约 136MB（含 Node.js 运行时）
+- **文件大小**: 约 136MB（含 Chromium 浏览器 + Node.js）
 - **系统要求**: Windows 7+ 64位
-- **无需依赖**: 用户无需安装 Node.js
-- **分发方式**: 压缩整个 `gomoku-battle-full` 文件夹为 ZIP
+- **无需依赖**: 内置浏览器，无需安装 Node.js 或浏览器
+- **分发方式**: 直接发送 `五子棋对战-便携版.exe`
 
-### 相关脚本
+### Electron 配置
 
-- `scripts/build-portable.js` - 主打包脚本，下载 Node.js 并打包应用
+- 入口文件: `electron.js`
+- 配置: `package.json` 中的 `build` 字段
+- 支持目标: Windows (portable/nsis), macOS (dmg)
 
 ## 架构说明
 

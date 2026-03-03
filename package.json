@@ -1,14 +1,20 @@
 {
   "name": "gomoku-battle",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "五子棋对战 - 支持 PvP、PvE 和局域网多人游戏",
+  "main": "electron.js",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "build:portable": "node scripts/build-portable.js",
-    "build:all": "npm run build && npm run build:portable"
+    "electron:dev": "NODE_ENV=development electron .",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:win": "npm run build && electron-builder --win",
+    "electron:build:mac": "npm run build && electron-builder --mac",
+    "build:portable": "node scripts/build-portable.js"
   },
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.0",
@@ -23,7 +29,56 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^40.6.1",
+    "electron-builder": "^26.8.1",
     "pkg": "^5.8.1",
     "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.gomoku.battle",
+    "productName": "五子棋对战",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron.js",
+      "next.config.ts",
+      "src/**/*",
+      "public/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "五子棋对战"
+    },
+    "portable": {
+      "artifactName": "五子棋对战-便携版.exe"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/icon.png"
+    }
   }
 }
