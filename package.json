@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "build:portable": "node scripts/build-portable.js",
+    "build:all": "npm run build && npm run build:portable"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -21,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "pkg": "^5.8.1",
     "typescript": "^5"
   }
 }
