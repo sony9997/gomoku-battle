@@ -7,11 +7,8 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "electron:dev": "NODE_ENV=development electron .",
-    "electron:build": "npm run build && electron-builder",
-    "electron:build:win": "npm run build && electron-builder --win",
-    "electron:build:mac": "npm run build && electron-builder --mac",
-    "build:portable": "node scripts/build-portable.js"
+    "electron:dev": "electron .",
+    "electron:build": "npm run build && npx electron-builder --win portable --x64"
   },
   "author": "",
   "license": "MIT",
@@ -31,7 +28,6 @@
     "@types/react-dom": "^19",
     "electron": "^40.6.1",
     "electron-builder": "^26.8.1",
-    "pkg": "^5.8.1",
     "typescript": "^5"
   },
   "build": {
@@ -42,43 +38,38 @@
     },
     "files": [
       "electron.js",
+      "package.json",
       "next.config.ts",
       "src/**/*",
       "public/**/*",
       ".next/**/*",
       "node_modules/**/*",
-      "package.json"
+      "!**/node_modules/.cache/**",
+      "!**/node_modules/@next/swc-*/**",
+      "!**/node_modules/@img/**",
+      "!**/node_modules/@emnapi/**",
+      "!**/node_modules/7zip-bin/**",
+      "!**/node_modules/app-builder-bin/**",
+      "!**/node_modules/electron-winstaller/**",
+      "!**/node_modules/@electron/windows-sign/**",
+      "!**/*.md",
+      "!**/LICENSE*",
+      "!**/*.ts",
+      "!**/*.tsx",
+      "!**/*.map"
     ],
+    "asar": true,
     "win": {
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
           "target": "portable",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         }
       ],
       "icon": "public/icon.png"
     },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "五子棋对战"
-    },
     "portable": {
-      "artifactName": "五子棋对战-便携版.exe"
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "public/icon.png"
+      "artifactName": "五子棋对战.exe"
     }
   }
 }
