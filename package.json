@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "electron:dev": "electron .",
-    "electron:build": "npm run build && npx electron-builder --win portable --x64"
+    "electron:copy": "node scripts/copy-standalone.js",
+    "electron:build": "npm run build && npm run electron:copy && npx electron-builder --win portable --x64"
   },
   "author": "",
   "license": "MIT",
@@ -38,32 +39,19 @@
     },
     "files": [
       "electron.js",
-      "package.json",
-      "next.config.ts",
-      "src/**/*",
-      "public/**/*",
-      ".next/**/*",
-      "node_modules/**/*",
-      "!**/node_modules/.cache/**",
-      "!**/node_modules/@next/swc-*/**",
-      "!**/node_modules/@img/**",
-      "!**/node_modules/@emnapi/**",
-      "!**/node_modules/7zip-bin/**",
-      "!**/node_modules/app-builder-bin/**",
-      "!**/node_modules/electron-winstaller/**",
-      "!**/node_modules/@electron/windows-sign/**",
-      "!**/*.md",
-      "!**/LICENSE*",
-      "!**/*.ts",
-      "!**/*.tsx",
-      "!**/*.map"
+      ".next/standalone/**/*",
+      ".next/standalone-path.json",
+      "!release/**",
+      "!.git/**"
     ],
-    "asar": true,
+    "asar": false,
     "win": {
       "target": [
         {
           "target": "portable",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "public/icon.png"
